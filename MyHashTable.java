@@ -23,7 +23,11 @@ public class MyHashTable <K, V> {
         size = 0;
 
     }
-    public MyHashTable (int M){}
+    public MyHashTable (int m){
+        this.M = m;
+        chain = new LinkedList[M];
+        size = 0;
+    }
     private int hash(K key){
         return Math.abs(key.hashCode()) % M;
 
