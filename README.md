@@ -93,6 +93,8 @@ public boolean contains(V value){
 ```
 
 ### Function: getKey
+Description: This function retrieves the key associated with a specific value in the hash table. It iterates over all the chains in the hash table and checks if any HashNode's value matches the given value
+
 ```java
 public K getKey(V value){
             for (LinkedList<HashNode<K, V>> bucket : chain) {
@@ -106,9 +108,10 @@ public K getKey(V value){
             return null;
         }
 ```
-Description: This function retrieves the key associated with a specific value in the hash table. It iterates over all the chains in the hash table and checks if any HashNode's value matches the given value
 
 ### Function: printBucketSizes
+Description: This function shows amount of elements in each bucket
+
 ```java
 public void printBucketSizes() {
         for (int i = 0; i < M; i++) {
@@ -117,4 +120,3 @@ public void printBucketSizes() {
         }
     }
 ```
-Description: This function shows amount of elements in each bucket
