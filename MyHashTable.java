@@ -1,7 +1,7 @@
 import java.util.LinkedList;
 
 public class MyHashTable <K, V> {
-    private class HashNode<K,V>{
+        private static class HashNode<K,V>{
         private K key;
         private V value;
         private HashNode <K, V> next;
@@ -30,11 +30,23 @@ public class MyHashTable <K, V> {
     }
     private int hash(K key){
         return Math.abs(key.hashCode()) % M;
-
     }
     public void  put(K key, V value){
+
+        int index = hash(key);
+        LinkedList<HashNode<K, V>> bucket = chain[index];
+
+        for (HashNode<K, V> entry : bucket) {
+            if (entry.key.equals(key)) {
+                entry.value = value;
+                return;
+            }
+        }
+
+        bucket.add(new HashNode<>(key, value));
     }
     public V get(K key){
+        
     }
     public V remove(K key){
     }
