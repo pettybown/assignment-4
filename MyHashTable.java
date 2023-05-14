@@ -82,6 +82,15 @@ public class MyHashTable <K, V> {
 
         return false;}
         public K getKey(V value){
+            for (LinkedList<HashNode<K, V>> bucket : chain) {
+                for (HashNode<K, V> entry : bucket) {
+                    if (entry.value.equals(value)) {
+                        return entry.key;
+                    }
+                }
+            }
+
+            return null;
         }
 
 }
