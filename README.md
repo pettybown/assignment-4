@@ -53,7 +53,7 @@ public V get(K key){
 ```
 
 ### Function: remove
-Description: This function is used to remove a key-value pair from the hash table. It calculates the index using the hash function and then iterates over the chain at that index to find the matching key. If found, it removes the corresponding HashNode from the chain, decrements the size, and returns the value; otherwise, it returns null.
+Description: This function is used to remove a key-value pair from the hash table. It calculates the index using the hash function and then iterates over the chain at that index to find the matching key. If found, it removes the corresponding HashNode from the chain, and returns the value; otherwise, it returns null.
 
 Code:
 ```java
