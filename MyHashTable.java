@@ -14,6 +14,8 @@ public class MyHashTable <K, V> {
         public String toString (){
             return "{" + key + " " + value + "}";
         }
+
+
     }
     private LinkedList<HashNode<K, V>>[] chain;
     private int M = 11;
@@ -23,6 +25,7 @@ public class MyHashTable <K, V> {
         size = 0;
 
     }
+
     public MyHashTable (int m){
         this.M = m;
         chain = new LinkedList[M];
@@ -34,16 +37,19 @@ public class MyHashTable <K, V> {
     public void  put(K key, V value){
 
         int index = hash(key);
+        if (chain[index] == null){
+            chain[index] = new LinkedList<HashNode<K, V>>();
+        }
         LinkedList<HashNode<K, V>> bucket = chain[index];
 
         for (HashNode<K, V> entry : bucket) {
             if (entry.key.equals(key)) {
-                entry.value = value;
+                entry.value = value; // Update the value if the key already exists
                 return;
             }
         }
 
-        bucket.add(new HashNode<>(key, value));
+        bucket.add(new HashNode<>(key, value)); // Add a new entry if the key doesn't exist
     }
     public V get(K key){
         int index = hash(key);
@@ -92,5 +98,11 @@ public class MyHashTable <K, V> {
 
             return null;
         }
+    public void printBucketSizes() {
+        for (int i = 0; i < M; i++) {
+            LinkedList<HashNode<K, V>> bucket = chain[i];
+            System.out.println("Bucket " + i + " size: " + bucket.size());
+        }
+    }
 
 }
