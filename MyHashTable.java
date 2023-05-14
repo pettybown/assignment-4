@@ -58,6 +58,18 @@ public class MyHashTable <K, V> {
         return null;
     }
     public V remove(K key){
+        int index = hash(key);
+        LinkedList<HashNode<K, V>> bucket = chain[index];
+
+        for (HashNode<K, V> entry : bucket) {
+            if (entry.key.equals(key)) {
+                V value = entry.value;
+                bucket.remove(entry);
+                return value;
+            }
+        }
+
+        return null;
     }
     public boolean contains(V value){
     return true;
