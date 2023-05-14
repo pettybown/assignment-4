@@ -46,7 +46,16 @@ public class MyHashTable <K, V> {
         bucket.add(new HashNode<>(key, value));
     }
     public V get(K key){
-        
+        int index = hash(key);
+        LinkedList<HashNode<K, V>> bucket = chain[index];
+
+        for (HashNode<K, V> entry : bucket) {
+            if (entry.key.equals(key)) {
+                return entry.value;
+            }
+        }
+
+        return null;
     }
     public V remove(K key){
     }
