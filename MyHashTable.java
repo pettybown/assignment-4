@@ -1,3 +1,5 @@
+import java.util.LinkedList;
+
 public class MyHashTable <K, V> {
     private class HashNode<K,V>{
         private K key;
@@ -13,9 +15,13 @@ public class MyHashTable <K, V> {
             return "{" + key + " " + value + "}";
         }
     }
+    private LinkedList<HashNode<K, V>>[] chain;
     private int M = 11;
     private int size;
     public MyHashTable(){
+        chain = new LinkedList[M];
+        size = 0;
+
     }
     public MyHashTable (int M){}
     private int hash(K key){
@@ -31,7 +37,7 @@ public class MyHashTable <K, V> {
     public boolean contains(V value){
     return true;
     }
-    public K getKey(V value){
-    }
+        public K getKey(V value){
+        }
 
 }
