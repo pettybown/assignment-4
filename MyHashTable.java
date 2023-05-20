@@ -1,10 +1,11 @@
+import java.util.HashSet;
 import java.util.LinkedList;
 
 public class MyHashTable <K, V> {
         private static class HashNode<K,V>{
         private K key;
         private V value;
-        private HashNode <K, V> next;
+        HashNode <K, V> next;
 
         public HashNode (K key, V value){
             this.key = key;
@@ -35,7 +36,9 @@ public class MyHashTable <K, V> {
         return Math.abs(key.hashCode()) % M;
     }
     public void  put(K key, V value){
-
+        if ((float) (size + 1) / chain.length > 0.75) {
+            resize(chain.length * 2);
+        }
         int index = hash(key);
         if (chain[index] == null){
             chain[index] = new LinkedList<HashNode<K, V>>();
@@ -44,12 +47,12 @@ public class MyHashTable <K, V> {
 
         for (HashNode<K, V> entry : bucket) {
             if (entry.key.equals(key)) {
-                entry.value = value; // Update the value if the key already exists
+                entry.value = value;
                 return;
             }
         }
-
-        bucket.add(new HashNode<>(key, value)); // Add a new entry if the key doesn't exist
+        size++;
+        bucket.add(new HashNode<>(key, value));
     }
     public V get(K key){
         int index = hash(key);
@@ -86,7 +89,8 @@ public class MyHashTable <K, V> {
             }
         }
 
-        return false;}
+        return false;
+    }
         public K getKey(V value){
             for (LinkedList<HashNode<K, V>> bucket : chain) {
                 for (HashNode<K, V> entry : bucket) {
@@ -104,5 +108,35 @@ public class MyHashTable <K, V> {
             System.out.println("Bucket " + i + " size: " + bucket.size());
         }
     }
+
+    private void resize(int newCapacity) {
+        LinkedList<HashNode<K, V>>[] newChain = new LinkedList[newCapacity];
+        size = 0;
+        for (LinkedList<HashNode<K, V>> bucket : chain) {
+            if (bucket != null) {
+                for (HashNode<K, V> entry : bucket) {
+                    int newIndex = hash(entry.key);
+                    LinkedList<HashNode<K, V>> newBucket = newChain[newIndex];
+
+                    if (newBucket == null) {
+                        newBucket = new LinkedList<>();
+                        newChain[newIndex] = newBucket;
+                    }
+
+                    newBucket.add(entry);
+                    size++;
+                }
+            }
+        }
+
+        chain = newChain;
+    }
+
+    public int getSize(){
+        return size;
+    }
+
+
+
 
 }
